@@ -15,7 +15,7 @@ const Reviews = () => {
       _id: 2,
       name: "Helena Andrew",
       image: people3,
-      rev: "As a student I can not buy expensive watch from shop at such a high rate.But one of my friends told about this website and I bought a watch from here few days back.Service was good ",
+      rev: "As a student I can not buy expensive watch from shop at such a high rate.But one of my friends told about this website and I bought a watch from here few days ago.Service was impressive. ",
     },
     
     {
