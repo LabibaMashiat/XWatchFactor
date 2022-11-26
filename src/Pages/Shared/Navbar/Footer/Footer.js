@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
     return (
         <footer className="footer p-10 bg-base-100  flex flex-col w-100">
-        <div className='grid grid-cols-3 mx-auto'>
+        <div className='grid grid-cols-3 gap-x-60 mx-auto'>
         <div>
           <img src="https://i.ibb.co/KNTnbwG/timelogo.jpg" className='w-12 h-15' alt="" />
-          <Link to='/' className="btn btn-ghost normal-case text-xl"><span className='text-blue-700 font-serif'><i>X</i></span>WatchFactor</Link>
+          <Link to='/' className="text-xl"><span className='text-orange-800 font-serif'><i>X</i></span>WatchFactor</Link>
         </div> 
         <div>
           <span className="footer-title">Social</span> 

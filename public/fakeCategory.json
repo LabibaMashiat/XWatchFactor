@@ -5,14 +5,15 @@
       "img": "https://i.ibb.co/smch4sS/menWatch.jpg",
       "name": "MEN"
     },
+    
     {
       "category": "2",
-      "img": "https://i.ibb.co/qk25y9Y/women-Watch.jpg",
-      "name": "WOMEN"
-    },
-    {
-      "category": "3",
       "img": "https://i.ibb.co/pL7nk4Z/kids-Watch.jpg",
       "name": "KIDS"
-    }
+    },
+    {
+        "category": "3",
+        "img": "https://i.ibb.co/qk25y9Y/women-Watch.jpg",
+        "name": "WOMEN"
+      }
   ]

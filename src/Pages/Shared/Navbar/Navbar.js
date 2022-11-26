@@ -22,7 +22,7 @@ const Navbar = () => {
       </ul>
     </div>
     <img src={logoImg} alt="LogoImage" className=' w-6 h-8' />
-    <Link to='/' className="btn btn-ghost normal-case text-xl"><span className='text-blue-700 font-serif'><i>X</i></span>WatchFactor</Link>
+    <Link to='/' className="btn btn-ghost normal-case text-xl"><span className='text-orange-800 font-serif'><i>X</i></span>WatchFactor</Link>
   </div>
   <div className="navbar-end hidden lg:flex">
     <ul className="menu menu-horizontal p-0">
