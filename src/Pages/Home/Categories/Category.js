@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Category = ({categoryOption}) => {
-    const{name,img,category,_id}=categoryOption
+    const{name,img,category}=categoryOption
     return (
-        <Link to={`/category/${_id}`}>
+        <Link to={`/categories/${category}`}>
         <div className="card bg-base-100 shadow-2xl w-72">
         <figure><img src={img} alt="category" /></figure>
         <div className="card-body">

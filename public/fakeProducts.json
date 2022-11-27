@@ -1,0 +1,68 @@
+[
+    {
+      "picture": "https://i.ibb.co/PNvtsnN/men1.jpg",
+      "name": "Casio G-Shock MT-G",
+      "resale_price": "350",
+      "original_price": "500",
+      "years_of_use": "Approximate 1 year",
+      "location": "California",
+      "sellers_name": "Emilia Sanford",
+      "posted_date": "12/10/2022",
+      "category_value":"1"
+    },
+    {
+      "picture": "https://i.ibb.co/QcZ3yby/men2.jpg",
+      "name": "Seiko SSH109J1",
+      "resale_price": "250",
+      "original_price": "450",
+      "years_of_use": "2 Years",
+      "location": "New York",
+      "sellers_name": "Stark Murphy",
+      "posted_date": "20/11/2022",
+      "category_value":"1"
+    },
+    {
+      "picture": "https://i.ibb.co/Khb8G3B/women1.jpg",
+      "name": "Audemars Piguet",
+      "resale_price": "300",
+      "original_price": "445.56",
+      "years_of_use": "Approximate 1.5 years",
+      "location": "New York",
+      "sellers_name": "Jessie Joyner",
+      "posted_date": "21/11/2022",
+      "category_value":"2"
+    },
+    {
+      "picture": "https://i.ibb.co/3vD3bmk/women2.jpg",
+      "name": "Chopard",
+      "resale_price": "675",
+      "original_price": "325",
+      "years_of_use": "Approximate 2 years",
+      "location": "Fluorida",
+      "sellers_name": "Phyllis Rivers",
+      "posted_date": "20/11/2022",
+      "category_value":"2"
+    },
+    {
+      "picture": "https://i.ibb.co/nMXNggf/kids1.jpg",
+      "name": "Casio",
+      "resale_price": "50",
+      "original_price": "115",
+      "years_of_use": "6 months",
+      "location": "New York",
+      "sellers_name": "Melba Booth",
+      "posted_date": "15/11/2022",
+      "category_value":"3"
+    },
+    {
+      "picture": "https://i.ibb.co/nMXNggf/kids1.jpg",
+      "name": "Omega",
+      "resale_price": "75",
+      "original_price": "245",
+      "years_of_use": "2 years",
+      "location": "Fluorida",
+      "sellers_name": "Gilmore Cook",
+      "posted_date": "25/11/2022",
+      "category_value":"3"
+    }
+  ]
