@@ -1,11 +1,30 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const Login = () => {
+    const{signIn}= useContext(AuthContext);
+    const[loginError,setLoginError]=useState('');
+    const navigate=useNavigate();
   const { register,formState: { errors }, handleSubmit } = useForm();
+
+
   const handleLogin=data=>{
+    setLoginError('');
     console.log(data);
+    signIn(data.email,data.password)
+    .then(result=>{
+        const user=result.user;
+        console.log(user);
+        navigate('/')
+        
+    })
+    .catch(er=>{
+        console.error(er);
+        setLoginError(er.message)
+
+    })
   }
   return (
     <div className=" flex justify-center items-center">
@@ -38,6 +57,7 @@ const Login = () => {
           </div>
 
           <input value='Login' className="btn bg-orange-800 w-full mt-14" type="submit" />
+          {loginError && <p className='text-red-600'>{loginError}</p>}
         </form>
         <p className="mt-5 mx-auto">New to <span className="font-bold"><i className="text-orange-900 font-serif">X</i>WatchFactor</span>? <Link to='/signup'> <u className="text-orange-900">Create New Account.</u> </Link></p>
         <div className="divider">OR</div>
