@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 const Login = () => {
-  const { register, handleSubmit } = useForm();
+  const { register,formState: { errors }, handleSubmit } = useForm();
   const handleLogin=data=>{
     console.log(data);
   }
@@ -16,21 +16,25 @@ const Login = () => {
           <div className="form-control w-full ">
             <label className="label"><span className="label-text">Email</span>
             </label>
-            <input {...register("email")}
+            <input {...register("email",{ required: "Email address is required" })}
               type="email"
               placeholder="Email"
               className="input input-bordered w-full max-w-xs"
             />
+            {errors.email && (
+            <p className="text-red-600">{errors.email?.message}</p>
+          )}
           </div>
           {/* password */}
           <div className="form-control w-full ">
             <label className="label"><span className="label-text">Password</span>
             </label>
-            <input {...register("password")}
+            <input {...register("password",{ required: "Password is required" })}
               type="password"
               placeholder="Password"
               className="input input-bordered w-full max-w-xs"
             />
+            {errors.password && <p className="text-red-600">{errors.password?.message}</p>}
           </div>
 
           <input value='Login' className="btn bg-orange-800 w-full mt-14" type="submit" />
