@@ -16,7 +16,7 @@ const Categories = () => {
         <h1 className='text-center font-semi-bold text-orange-700 text-4xl mb-10'>All Second Hand Product Categories</h1>
          <div className='grid grid-cols-1 md:grid-cols-3 gap-6 '>
             {
-                categoriesOptions.map(category=><Category categoryOption={category}></Category>)
+                categoriesOptions.map(category=><Category categoryOption={category} key={category._id}></Category>)
             }
         </div>
        </div>
