@@ -7,10 +7,9 @@ const PrivateRoute = ({children}) => {
     const{user,loading}=useContext(AuthContext);
     const location=useLocation();
     if(loading){
-        return <button type="button" className="bg-orange-900 ..." disabled>
-        <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
+        return <button type="button"  disabled>
+        <svg className="animate-spin  bg-black h-5 w-5 mr-3 ..." viewBox="0 0 24 24"/>
          
-        </svg>
         Loading....
       </button>
     }

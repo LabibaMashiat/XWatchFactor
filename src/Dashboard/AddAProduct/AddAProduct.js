@@ -2,11 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
+import Loading from '../../Loading/Loading';
 
 const AddAProduct = () => {
     const{user}=useContext(AuthContext);
-    const { data: users=[] } = useQuery({
+    const navigate=useNavigate();
+    const { data: users=[] ,isLoading,refetch} = useQuery({
         queryKey: ["users"],
         queryFn: async () => {
           const res = await fetch(
@@ -50,7 +53,7 @@ const AddAProduct = () => {
                     product_description:data.product_description,
                     location:data.location,
                     sellers_name:data.sellers_name,
-                    sellers_email:data.sellers_email,
+                    sellers_email:data.email,
                     sellers_phone:data.phone,
                     posted_date:data.posted_date,
                     category_value:data.category_value,
@@ -69,11 +72,15 @@ const AddAProduct = () => {
                       console.log(result);
                       if(result.acknowledged){
                       toast.success("Product successfully added");
+                      navigate('/dashboard/myProducts')
                       }
                     });
 
                 };
                 });
+                if(isLoading){
+                  return <Loading></Loading>
+                }
       };
       
       
@@ -102,7 +109,7 @@ const AddAProduct = () => {
           <input
             type="text"
             className="input input-bordered w-full max-w-xs"
-            defaultValue={currentUser[0]?.location}
+            // defaultValue={currentUser[0]?.location}
             {...register("location")}
           />
         </div>
@@ -156,8 +163,8 @@ const AddAProduct = () => {
           <input
             type="text"
             className="input input-bordered w-full max-w-xs"
-            // defaultValue={user?.displayName && user.displayName}
-            defaultValue={currentUser[0]?.name}
+            defaultValue={user?.displayName && user.displayName}
+            // defaultValue={currentUser[0]?.name}
             readOnly
             {...register("sellers_name")}
           />
@@ -170,8 +177,8 @@ const AddAProduct = () => {
           <input
             type="email"
             className="input input-bordered w-full max-w-xs"
-            // defaultValue={user?.email}
-            defaultValue={currentUser[0]?.email}
+            defaultValue={user?.email}
+            // defaultValue={currentUser[0]?.email}
             readOnly
             {...register("email")}
           />
@@ -187,8 +194,8 @@ const AddAProduct = () => {
           <input
             type="number"
             className="input input-bordered w-full max-w-xs"
-            defaultValue={currentUser[0]?.phone}
-            readOnly
+            // defaultValue={currentUser[0]?.phone}
+            // readOnly
             {...register("phone")}
           />
          
@@ -257,7 +264,7 @@ const AddAProduct = () => {
           <input
             type="file"
             className="input input-bordered w-full max-w-xs"
-            {...register("picture",{ required: "Product Photo is required" })}
+            {...register("picture")}
           />
           {errors.picture && (
             <p className="text-red-600">{errors.picture?.message}</p>

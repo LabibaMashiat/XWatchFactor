@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
 import toast from 'react-hot-toast';
@@ -6,6 +7,16 @@ import { AuthContext } from '../../contexts/AuthProvider';
 
 const Signup = () => {
     const { createUser, updateUser } = useContext(AuthContext);
+    const { data: users=[] ,isLoading,refetch} = useQuery({
+      queryKey: ["users"],
+      queryFn: async () => {
+        const res = await fetch(
+          "http://localhost:5000/users"
+        );
+        const data = await res.json();
+        return data;
+      },
+    });
     const [signUpError, setSignUpError] = useState("");
     const navigate = useNavigate();
     const { register,formState: { errors }, handleSubmit } = useForm();
@@ -22,7 +33,7 @@ const Signup = () => {
           };
           updateUser(updateInfo)
             .then(() => {
-              saveUser(data.name,data.location, data.phone, data.email);
+              saveUser(data.name,data.location, data.phone,data.status ,data.email);
             })
             .catch((err) => console.log(err));
     })
@@ -31,8 +42,8 @@ const Signup = () => {
             setSignUpError(er.message);
           });
   };
-  const saveUser = (name,location, phone, email) => {
-    const user = { name,location, phone, email };
+  const saveUser = (name,location, phone,status, email) => {
+    const user = { name,location, phone, email,status };
     fetch("http://localhost:5000/users", {
       method: "POST",
       headers: {
@@ -44,6 +55,8 @@ const Signup = () => {
       .then((data) => {
         // console.log("savedUser", data);
         if(data.acknowledged){
+          toast('User added successfully')
+            refetch();
             navigate('/login')
         }
       });
@@ -88,6 +101,8 @@ const Signup = () => {
               />
              
             </div>
+           
+            
             {/* Email */}
             <div className="form-control w-full ">
               <label className="label"><span className="label-text">Email</span>
@@ -101,6 +116,29 @@ const Signup = () => {
               <p className="text-red-600">{errors.email?.message}</p>
             )}
             </div>
+             {/* Status */}
+            <div className="form-control w-full max-w-xs">
+          <label className="label">
+            <span className="label-text">Status</span>
+          </label>
+          <select
+            {...register("status",{ required: "Please select your Status" })}
+            className="select select-bordered w-full max-w-xs"
+          >
+           
+           
+            <option>
+                Buyer
+            </option>
+            <option>
+                Seller
+            </option>
+            
+          </select>
+          {errors.satus && (
+            <p className="text-red-600">{errors.status?.message}</p>
+          )}
+        </div>
             {/* password */}
             <div className="form-control w-full ">
               <label className="label"><span className="label-text">Password</span>
