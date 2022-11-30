@@ -5,6 +5,7 @@ export const AuthContext=createContext();
 const auth=getAuth(app);
 
 const AuthProvider = ({children}) => {
+    const[addAdvertisedItems,setAddAdvertisedItems]=useState([]);
     const[user,setUser]=useState(null);
     const [loading,setLoading]=useState(true);
     const createUser=(email,password)=>{
@@ -33,7 +34,7 @@ const AuthProvider = ({children}) => {
         });
         return ()=> unSubscribe();
     },[]);
-    const authInfo={createUser,signIn,logOut,updateUser,user,loading,providerLogin};
+    const authInfo={createUser,signIn,logOut,updateUser,user,loading,providerLogin,addAdvertisedItems,setAddAdvertisedItems};
     return (
         <AuthContext.Provider value={authInfo}>
         {children}

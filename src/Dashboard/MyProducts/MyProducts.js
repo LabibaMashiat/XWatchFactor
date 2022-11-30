@@ -1,16 +1,22 @@
+
 import { useQuery } from '@tanstack/react-query';
+import { isDisabled } from '@testing-library/user-event/dist/utils';
 import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
+import Loading from '../../Loading/Loading';
+import AdvertisedItems from '../../Pages/Home/AdvertisedItems/AdvertisedItems';
 import ConfirmationModal from '../../Pages/Shared/ConfirmationModal/ConfirmationModal';
 
 const MyProducts = () => {
+
     const closeModal = () => {
         setDeletingProduct(null);
       };
+     const[advertisedButtonDisable,setAdvertisedButtonDisable]=useState(false);
+    //   const[addAdvertisedItems,setAddAdvertisedItems]=useState([]); 
     const [deletingProduct, setDeletingProduct] = useState(null);
-    const{user}=useContext(AuthContext)
+    const{user,addAdvertisedItems,setAddAdvertisedItems,loading}=useContext(AuthContext)
     const { data: myProducts = [], refetch } = useQuery({
         queryKey: ["users"],
         queryFn: async () => {
@@ -39,9 +45,27 @@ const MyProducts = () => {
               }
             });
     }
+   
+    const handleAdvertised=myProduct=>{
+        setAdvertisedButtonDisable(true)
+        fetch(`http://localhost:5000/advertisedProducts/${myProduct._id}`)
+        .then(res=>res.json())
+        .then(data=>{
+            setAddAdvertisedItems([data,...addAdvertisedItems])
+
+    
+        })
+       
+    }
 
     return (
         <div>
+            <h1>
+                advertsed items={addAdvertisedItems.length}
+                {
+                    console.log(addAdvertisedItems)
+                }
+            </h1>
             <div className="w-full">
             <h1>Hello {user?.displayName}!! Your available products are here:</h1>
         <table className="table w-full">
@@ -52,6 +76,7 @@ const MyProducts = () => {
               <th>Resale Price</th>
               <th>Location</th>
               <th>Posted Date</th>
+              <th></th>
               <th></th>
             </tr>
           </thead>
@@ -84,6 +109,14 @@ const MyProducts = () => {
                   >
                     Delete
                   </label>
+                </td>
+              <td>
+
+                 {
+                    advertisedButtonDisable?<button className="btn bg-gray-200 btn-sm btn-error" disabled>Advertised</button>:<button className="btn bg-orange-400 btn-sm btn-error">Advertise</button>
+                 }
+                    
+             
                 </td>
             </tr>
                 )
