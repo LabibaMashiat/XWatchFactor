@@ -4,10 +4,31 @@ import toast from 'react-hot-toast';
 import ConfirmationModal from '../../Pages/Shared/ConfirmationModal/ConfirmationModal';
 
 const AllUsers = () => {
+  const[verifyseller,setVerifySeller]=useState(false);
     const[deletingUser,setDeletingUser]=useState(null);
     const closeModal = () => {
         setDeletingUser(null);
       };
+      const handleSellerVerify = (user)=>{
+        setVerifySeller(true);
+      }
+      const handleAdmin=id=>{
+        fetch(
+          `http://localhost:5000/users/admin/${id}`,
+          {
+            method: "PUT",
+           
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            if (data.modifiedCount > 0) {
+              toast.success("Make Admin Successful");
+              refetch();
+            }
+          });
+      }
     const { data: users = [], refetch } = useQuery({
         queryKey: ["users"],
         queryFn: async () => {
@@ -48,6 +69,7 @@ const AllUsers = () => {
               <th>User Location</th>
               <th>Status</th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -69,6 +91,25 @@ const AllUsers = () => {
                     Delete
                   </label>
                 </td>
+                <td>
+                  {user.status==='Seller'&&
+                   
+                    <button onClick={()=>handleSellerVerify(user)} className="btn bg-violet-400 btn-sm btn-error">
+                    Verify
+                 </button> 
+                    
+                  }
+                     
+                 
+                </td>
+                <td>
+                  {
+                    user?.role!=='admin'&& 
+                    <button onClick={()=>handleAdmin(user._id)} className='btn bg-orange-400 btn-sm btn-error'>
+                    Make Admin
+                  </button>
+                  }
+                </td>
                     </tr>)
                 }
            
@@ -84,6 +125,7 @@ const AllUsers = () => {
           closeModal={closeModal}
         ></ConfirmationModal>
       )}
+      
        </div>
     );
 };
