@@ -60,12 +60,12 @@ const MyProducts = () => {
 
     return (
         <div>
-            <h1>
+            {/* <h1>
                 advertsed items={addAdvertisedItems.length}
                 {
                     console.log(addAdvertisedItems)
                 }
-            </h1>
+            </h1> */}
             <div className="w-full">
             <h1>Hello {user?.displayName}!! Your available products are here:</h1>
         <table className="table w-full">

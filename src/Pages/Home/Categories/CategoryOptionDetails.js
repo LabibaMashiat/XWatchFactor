@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { FaCartPlus } from 'react-icons/fa';
+import { AuthContext } from '../../../contexts/AuthProvider';
 
-const CategoryOptionDetails = ({product}) => {
+const CategoryOptionDetails = ({product,setBookingProduct}) => {
+  
     const{picture,name,location,resale_price,original_price,years_of_use,sellers_name,posted_date,sellers_email,sellers_phone,product_description}=product
     return (
         <div className="card bg-base-100 shadow-2xl w-72">
@@ -16,7 +19,10 @@ const CategoryOptionDetails = ({product}) => {
           <p className='font-semi-bold'><u>Sellers Phone</u> : {sellers_phone}</p>
           <p className='font-semi-bold'><u>Location</u> : {location}</p>
           <p className='font-semi-bold'><u>Posted Date</u> : {posted_date}</p>
-
+         <div>
+         <label onClick={()=>setBookingProduct(product)} htmlFor="booking-modal" className="btn bg-orange-700 p-3 rounded w-full">Book Now< FaCartPlus className='mx-3 w-8 h-8'></FaCartPlus></label>
+        
+         </div>
         </div>
       </div>
     );
