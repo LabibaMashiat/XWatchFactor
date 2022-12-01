@@ -11,7 +11,6 @@ const BookingModal = ({bookingProduct,setBookingProduct}) => {
     const {
         data: products = [],
         refetch,
-        isLoading,
       } = useQuery({
         queryKey: ["allproducts", _id],
         queryFn: async () => {
@@ -59,7 +58,7 @@ const BookingModal = ({bookingProduct,setBookingProduct}) => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-
+        refetch();
         if (data.acknowledged) {
           setBookingProduct(null);
           
