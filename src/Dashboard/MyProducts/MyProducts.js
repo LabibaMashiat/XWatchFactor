@@ -18,7 +18,7 @@ const MyProducts = () => {
     const [deletingProduct, setDeletingProduct] = useState(null);
     const{user,addAdvertisedItems,setAddAdvertisedItems,loading}=useContext(AuthContext)
     const { data: myProducts = [], refetch } = useQuery({
-        queryKey: ["users"],
+        queryKey: ["products",user?.email],
         queryFn: async () => {
           const res = await fetch(
             `http://localhost:5000/products/${user?.email}`
@@ -46,16 +46,23 @@ const MyProducts = () => {
             });
     }
    
-    const handleAdvertised=myProduct=>{
+    const handleAdvertised=id=>{
         setAdvertisedButtonDisable(true)
-        fetch(`http://localhost:5000/advertisedProducts/${myProduct._id}`)
-        .then(res=>res.json())
-        .then(data=>{
-            setAddAdvertisedItems([data,...addAdvertisedItems])
-
-    
-        })
-       
+        fetch(
+          `http://localhost:5000/allProducts/${id}`,
+          {
+            method: "PUT",
+           
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            if (data.modifiedCount > 0) {
+              toast.success("Advertised Successfully");
+              refetch();
+            }
+          });
     }
 
     return (
@@ -110,13 +117,12 @@ const MyProducts = () => {
                     Delete
                   </label>
                 </td>
-              <td>
+                <td>
+                {
+                    // advertisedButtonDisable?<button className="btn bg-gray-200 btn-sm btn-error" disabled>Advertised</button>:<button onClick={()=>handleAdvertised(myProduct._id)} className="btn bg-orange-400 btn-sm btn-error">Advertise</button>
 
-                 {
-                    advertisedButtonDisable?<button className="btn bg-gray-200 btn-sm btn-error" disabled>Advertised</button>:<button className="btn bg-orange-400 btn-sm btn-error">Advertise</button>
+                    !myProduct.advertised && <button onClick={()=>handleAdvertised(myProduct._id)} className="btn bg-orange-400 btn-sm btn-error">Advertise</button>
                  }
-                    
-             
                 </td>
             </tr>
                 )
