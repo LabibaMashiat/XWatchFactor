@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
+import { FaTrashAlt,FaUserLock ,FaCrown} from 'react-icons/fa';
 import ConfirmationModal from '../../Pages/Shared/ConfirmationModal/ConfirmationModal';
 
 const AllUsers = () => {
@@ -9,8 +10,23 @@ const AllUsers = () => {
     const closeModal = () => {
         setDeletingUser(null);
       };
-      const handleSellerVerify = (user)=>{
-        setVerifySeller(true);
+      const handleSellerVerify = (id)=>{
+        fetch(
+          `http://localhost:5000/verifiedSeller/${id}`,
+          {
+            method: "PUT",
+           
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            if (data.modifiedCount > 0) {
+              toast.success("Seller Verification Succesful");
+              refetch();
+            }
+          });
+        
       }
       const handleAdmin=id=>{
         fetch(
@@ -58,8 +74,8 @@ const AllUsers = () => {
     }
     return (
        <div>
-         <div className="">
-        <table className="table w-full">
+         <div className="overflow-x-auto">
+        <table className="table max-w-lg">
           <thead>
             <tr>
               <th></th>
@@ -68,8 +84,9 @@ const AllUsers = () => {
               <th>User Phone</th>
               <th>User Location</th>
               <th>Status</th>
-              <th></th>
-              <th></th>
+              <th>Delete User</th>
+              <th>Verify Seller</th>
+              <th>Make Admin</th>
             </tr>
           </thead>
           <tbody>
@@ -86,16 +103,17 @@ const AllUsers = () => {
                   <label
                     onClick={() => setDeletingUser(user)}
                     htmlFor="confirmation-modal"
-                    className="btn bg-orange-400 btn-sm btn-error"
+                    // className="btn bg-orange-400 btn-sm btn-error"
                   >
-                    Delete
+                   <FaTrashAlt className='w-6 h-6'></FaTrashAlt>
                   </label>
                 </td>
                 <td>
-                  {user.status==='Seller'&&
+                  {user.status==='Seller'&& !user.seller_verified &&
                    
-                    <button onClick={()=>handleSellerVerify(user)} className="btn bg-violet-400 btn-sm btn-error">
-                    Verify
+                    <button onClick={()=>handleSellerVerify(user._id)} 
+                    >
+                   <FaUserLock className='w-6 h-6'></FaUserLock>
                  </button> 
                     
                   }
@@ -105,8 +123,8 @@ const AllUsers = () => {
                 <td>
                   {
                     user?.role!=='admin'&& 
-                    <button onClick={()=>handleAdmin(user._id)} className='btn bg-orange-400 btn-sm btn-error'>
-                    Make Admin
+                    <button onClick={()=>handleAdmin(user._id)} >
+                   <FaCrown className='w-6 h-6'></FaCrown>
                   </button>
                   }
                 </td>
