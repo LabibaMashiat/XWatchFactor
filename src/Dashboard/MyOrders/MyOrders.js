@@ -37,7 +37,7 @@ const MyOrders = () => {
           <tbody>
             
           {
-            myOrders.map((myOrder,i)=>(
+            myOrders.reverse().map((myOrder,i)=>(
                 <tr key={myOrder._id}>
                 <th>{i+1}</th>
                 <td>

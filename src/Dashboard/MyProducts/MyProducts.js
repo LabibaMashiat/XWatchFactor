@@ -93,7 +93,7 @@ const MyProducts = () => {
           </thead>
           <tbody>
             {
-                myProducts.map((myProduct,i)=>(
+                myProducts.reverse().map((myProduct,i)=>(
                  <tr key={myProduct._id}>
               <th>{i+1}</th>
               <td>
