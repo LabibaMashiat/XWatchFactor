@@ -16,7 +16,7 @@ const MyBuyers = () => {
       });
     return (
         <div>
-            <div>
+            <div className="overflow-x-auto">
   <table className="table w-full">
     <thead>
       <tr>
@@ -27,12 +27,13 @@ const MyBuyers = () => {
         <th>Buyer Email</th>
         <th>Buyer Phone</th>
         <th>Buyer Location</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
 
       {
-        myBuyers.map((b,i)=><tr key={b._id}>
+        myBuyers.reverse().map((b,i)=><tr key={b._id}>
             <th>{i+1}</th>
               <td><div className="avatar">
   <div className="w-24 rounded-full">
@@ -44,6 +45,12 @@ const MyBuyers = () => {
               <td>{b.buyers_email}</td>
               <td>{b.buyers_phone}</td>
               <td>{b.buyers_location}</td>
+              <td>
+              {
+                b.paid &&
+                <button disabled className='bg-orange-300 p-2 rounded'>Paid</button>
+              }
+              </td>
               
             </tr>)
       }
