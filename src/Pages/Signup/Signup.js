@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from '../../contexts/AuthProvider';
+import useToken from '../../hooks/useToken';
 
 const Signup = () => {
     const { createUser, updateUser } = useContext(AuthContext);
@@ -18,8 +19,13 @@ const Signup = () => {
       },
     });
     const [signUpError, setSignUpError] = useState("");
+    const[createdUserEmail,setCreatedUserEmail]=useState('');
+    const [token]=useToken(createdUserEmail);
     const navigate = useNavigate();
     const { register,formState: { errors }, handleSubmit } = useForm();
+    if(token){
+      navigate('/');
+    }
   const handleSignup=data=>{
     // console.log(data);
     setSignUpError("")
@@ -55,12 +61,13 @@ const Signup = () => {
       .then((data) => {
         // console.log("savedUser", data);
         if(data.acknowledged){
-          toast('User added successfully')
-            refetch();
-            navigate('/login')
+          setCreatedUserEmail(email);
+            
+          
         }
       });
   };
+  
     return (
         <div className=" flex justify-center items-center">
         <div>

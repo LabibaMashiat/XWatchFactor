@@ -21,14 +21,31 @@ const MyWishLists = () => {
         queryKey: ["products/wishlists",user?.email],
         queryFn: async () => {
           const res = await fetch(
-            `http://localhost:5000/products/wishlists/${user?.email}`
+            `http://localhost:5000/products/wishlists/${user?.email}`,{
+                headers:{
+                    authorization:`bearer ${localStorage.getItem('accessToken')}`
+                  }
+            }
           );
           const data = await res.json();
           return data;
         },
       });
+      console.log(products);
       console.log(wishLists);
-      const result=products.filter(prod=>(wishLists.map(w=>w.product_id===prod._id)));
+    //   const result=products.filter(prod=>prod._id===(wishLists.map(w=>w.product_id)));
+    let i,j,res;
+    const result=[];
+
+    for(i=0;i<products.length;i++){
+       for(j=0;j<wishLists.length;j++){
+        if(products[i]._id===wishLists[j].product_id){
+            res=products[i];
+            result.push(res);
+            
+        }
+       }
+    }
       console.log(result);
 
     return (

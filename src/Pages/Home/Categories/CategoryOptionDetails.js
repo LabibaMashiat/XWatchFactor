@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
-import { FaCartPlus,FaBookmark } from 'react-icons/fa';
+import { FaCartPlus,FaBookmark,FaCheckCircle } from 'react-icons/fa';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import useBuyer from '../../../hooks/useBuyer';
 import MainCategoryOptions from './MainCategoryOptions/MainCategoryOptions';
@@ -20,13 +20,13 @@ const CategoryOptionDetails = ({product,setBookingProduct}) => {
       method: "POST",
       headers: {
         "content-type": "application/json",
-      //   authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        authorization: `bearer ${localStorage.getItem("accessToken")}`,
       },
       body: JSON.stringify(wishlist),
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         if(result.acknowledged){
         toast.success("Product successfully added to wishlist");
         
@@ -43,7 +43,9 @@ const CategoryOptionDetails = ({product,setBookingProduct}) => {
           <p className='font-semi-bold'><u>Original Price</u> : {original_price} $</p>
           <p className='font-semi-bold'><u>Years of Use</u> : {years_of_use}</p>
           <p className='font-semi-bold'><u>Product Description</u> : {product_description}</p>
-          <p className='font-semi-bold'><u>Sellers Name</u> : {sellers_name}</p>
+          <div className='flex'>
+          <p className='font-semi-bold flex'><u>Sellers Name</u> : {sellers_name} </p><FaCheckCircle className='bg-green-300 rounded'></FaCheckCircle>
+          </div>
           <p className='font-semi-bold'><u>Sellers Email</u> : {sellers_email}</p>
           <p className='font-semi-bold'><u>Sellers Phone</u> : {sellers_phone}</p>
           <p className='font-semi-bold'><u>Location</u> : {location}</p>

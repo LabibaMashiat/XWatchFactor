@@ -25,9 +25,11 @@ const AdvertisedItems = () => {
                 advertisedproducts.length && <h1 className='text-orange-700 text-center font-semi-bold text-4xl mt-5'>Advertised Items</h1>
             }
            
+         <div className='grid grid-cols-1 md:grid-cols-2 items-center justify-center'>
          {
             advertisedproducts.map(advertisedProduct=><CategoryOptionDetails key={advertisedProduct._id} product={advertisedProduct} setBookingProduct={setBookingProduct}></CategoryOptionDetails>)
          }
+         </div>
            
         </div>
         {

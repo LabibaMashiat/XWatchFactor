@@ -13,21 +13,25 @@ const MyProducts = () => {
     const closeModal = () => {
         setDeletingProduct(null);
       };
-     const[advertisedButtonDisable,setAdvertisedButtonDisable]=useState(false);
+   
     //   const[addAdvertisedItems,setAddAdvertisedItems]=useState([]); 
     const [deletingProduct, setDeletingProduct] = useState(null);
-    const{user,addAdvertisedItems,setAddAdvertisedItems,loading}=useContext(AuthContext)
+    const{user}=useContext(AuthContext)
     const { data: myProducts = [], refetch } = useQuery({
         queryKey: ["products",user?.email],
         queryFn: async () => {
           const res = await fetch(
-            `http://localhost:5000/products/${user?.email}`
+            `http://localhost:5000/products/${user?.email}`,{
+              headers:{
+                authorization:`bearer ${localStorage.getItem('accessToken')}`
+              }
+            }
           );
           const data = await res.json();
           return data;
         },
       });
-    // console.log(myProducts);
+    console.log(myProducts);
     const handleDeleteProduct=myProduct=>{
         fetch(
             `http://localhost:5000/allproducts/${myProduct._id}`,
@@ -47,7 +51,7 @@ const MyProducts = () => {
     }
    
     const handleAdvertised=id=>{
-        setAdvertisedButtonDisable(true)
+        
         fetch(
           `http://localhost:5000/allProducts/${id}`,
           {
