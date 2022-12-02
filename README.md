@@ -13,5 +13,11 @@
 * JSON webToken is used for security purpose.
 * Live Site Link : [""]
 * Admin Id:
-      Email:  user12@gmail.com
-      Password:  user12abc
+      Email:  user14@gmail.com
+      Password:  user14abc
+
+     * This Admin (user14) is boyh admin and seller 
+* (Also a buyer id is given for check )
+* Buyer Id:
+       Email: user12@gmail.com
+       Password: user12abc     
