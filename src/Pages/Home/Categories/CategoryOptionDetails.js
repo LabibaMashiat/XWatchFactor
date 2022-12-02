@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaCartPlus,FaBookmark,FaCheckCircle } from 'react-icons/fa';
@@ -33,6 +34,21 @@ const CategoryOptionDetails = ({product,setBookingProduct}) => {
         }
       });
    }
+   const { data: wishLists = []} = useQuery({
+    queryKey: ["products/wishlists",user?.email],
+    queryFn: async () => {
+      const res = await fetch(
+        `http://localhost:5000/products/wishlists/${user?.email}`,{
+            headers:{
+                authorization:`bearer ${localStorage.getItem('accessToken')}`
+              }
+        }
+      );
+      const data = await res.json();
+      return data;
+    },
+  });
+  console.log(wishLists);
    
     return (
         <div className="card bg-base-100 shadow-2xl w-72">
@@ -55,11 +71,9 @@ const CategoryOptionDetails = ({product,setBookingProduct}) => {
           isBuyer && 
          <div>
            <label onClick={()=>setBookingProduct(product)} htmlFor="booking-modal" className="btn bg-orange-700 p-1 rounded w-full">Book Now< FaCartPlus className='mx-3 w-8 h-8'></FaCartPlus></label>
-          
-            <button onClick={()=>handleWishList(product)} className="btn bg-violet-500 p-1 mt-3 rounded w-full">Add to WishList < FaBookmark className='mx-3 '></FaBookmark></button>
-          
-         </div>
-        }
+           <button onClick={()=>handleWishList(product)} className="btn bg-violet-500 p-1 mt-3 rounded w-full">Add to WishList < FaBookmark className='mx-3 '></FaBookmark></button>
+           </div>
+ }
         
          </div>
         </div>

@@ -7,6 +7,7 @@ import MyBuyers from "../../Dashboard/MyBuyers/MyBuyers";
 import MyOrders from "../../Dashboard/MyOrders/MyOrders";
 import MyProducts from "../../Dashboard/MyProducts/MyProducts";
 import MyWishLists from "../../Dashboard/MyWishLists/MyWishLists";
+import Payment from "../../Dashboard/Payment/Payment";
 import DashboardLayout from "../../layout/DashboardLayout";
 import Main from "../../layout/Main";
 import Blog from "../../Pages/Blog/Blog";
@@ -99,6 +100,16 @@ const router = createBrowserRouter([
         element:<SellerRoute><MyBuyers></MyBuyers></SellerRoute>
         
        },
+       {
+        path:'/dashboard/payment/:id',
+        element:<Payment></Payment>,
+
+      loader:({params}) =>fetch(`http://localhost:5000/bookings?/${params.id}`,{
+        headers:{
+                 authorization:`bearer ${localStorage.getItem('accessToken')}`
+              }
+      })
+      },
       ]
     },
   ]);
