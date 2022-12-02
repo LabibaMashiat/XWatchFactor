@@ -11,12 +11,12 @@
 * For backend mongoDB is used to store data.
 * An user can also sign in through google by google authencitation sysytem.
 * JSON webToken is used for security purpose.
-* Live Site Link : [""]
+* Live Site Link : ["https://x-watch-factor.web.app/"]
 * Admin Id:
       Email:  user14@gmail.com
       Password:  user14abc
 
-     * This Admin (user14) is boyh admin and seller 
+     * This Admin (user14) is both admin and seller 
 * (Also a buyer id is given for check )
 * Buyer Id:
        Email: user12@gmail.com
